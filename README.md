@@ -1,14 +1,46 @@
-> **CHAPTER 1: Typescript - What and why?**
+## Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Chapter 1: Typescript - What and why?](#chapter-1-typescript---what-and-why)
+  - [What?](#what)
+  - [Why?](#why)
+  - [Q\&A](#qa)
+- [Chapter 2: Setup](#chapter-2-setup)
+  - [Prerequisites](#prerequisites)
+  - [Getting Started](#getting-started)
+  - [Helpful Tools](#helpful-tools)
+- [Chapter 3: Examples](#chapter-3-examples)
+  - [Killbrick](#killbrick)
+  - [Roact TSX](#roact-tsx)
+- [Chapter 4: Conclusion \& Resources](#chapter-4-conclusion--resources)
 
-Typescript (originally) is a superset of the javascript programming language. It's purpose is to provide static typings, allowing developers to be more confident in the code that they write.
 
-The static type safety provided by typescript amounts to more work upfront in exchange for FAR less unpredictable errors at runtime.
+## Chapter 1: Typescript - What and why?
+
+### What?
+Typescript (originally) is a superset of the javascript programming language. It's purpose is to provide static typings to js, allowing developers to be more confident in the code that they write.
+
+Roblox-ts is a ported version of typescript for use on Roblox. It retains many of the beloved features of the original, and is preferred by many developers on the platform.
+
+### Why?
+The static type safety provided by typescript amounts to more work upfront in exchange for FAR less unpredictable errors at runtime. Developers also benefit from improved auto-complete throughout their codebase.
+
+### Q&A
+
+**Q:** I've never used typescript before, how can I learn?
+
+**A:** If you are new to typescript, here is a [crash course](https://learnxinyminutes.com/docs/typescript/).
+
+**Q:** What about my luau modules? (ProfileService, Octree, etc.)
+
+**A:** Roblox-ts allows developers to create [definition files](https://roblox-ts.com/docs/guides/using-existing-luau) that provide type definitions to existing luau code. Most modules that you are used to using can be found on npm. 
 
 **Q:** *Wait, luau support types. Why would i choose typescript?*
 
 **A:** While luau does support partial static typing, it is a gradually typed language. This basically means that static typings can be half-baked into a codebase and left to error at runtime. 
 
-Overall, Luau allows us to be lazy with our type annotations. See the following example:
+Put bluntly, Luau allows us to be lazy with our type annotations. See the following example:
+
+*Keep in mind that the return type will be inferred in these cases, but I'm including it here for clarity.*
 
 ```lua
 -- Proper Type Annotations
@@ -41,31 +73,34 @@ Append(1, "Hello");
 
 *New to typescript? Check out this* [typescript crash course](https://learnxinyminutes.com/docs/typescript/).
 
+## Chapter 2: Setup
 
-> **CHAPTER 2: SETUP**
-
-**Prerequisites**
+### Prerequisites
 
 1. External Editor
-    - This tutorial assumes you are using vscode, but most editors will work fine.
+    - This tutorial assumes you are using vscode, but another editor will work.
 2. [Node.js 14+](https://nodejs.org/en/) Installed
 3. [Rojo](https://rojo.space/docs/v7/getting-started/installation/) plugin or *preferably* [Rojo CLI](https://rojo.space/docs/v7/getting-started/installation/) 
 
-**Getting Started**
+### Getting Started
 
-Osiris has made the documentation for setup very clear and concise. For that reason, I'll link the setup guide here. **Follow it till step three, then return back.** https://roblox-ts.com/docs/setup-guide
+1. Create a folder at your destination of choice. 
+2. Open this folder with VS-Code.
+3. Open your integrated terminal with `Ctrl+Shift+tilde(~)`
+4. Type `npm install -g roblox-ts` within your terminal, then `Enter`.
+5. Type `rbxtsc init game`, then `Enter`.
+   1. Go ahead and hit enter for each item in the interactive setup. 
 
-Once you have setup the project using `rbxtsc init game`, you should see some new folders appear.
+You should now see some new folders appear.
 
-Awesome! You've setup your first project. If you have used rojo before, you will be familiar with the layout within the `src` folder. 
+Awesome! You've setup your first project. If you have used rojo before, you will be familiar with the layout within the `src` folder. You will also notice a `out` folder that mirrors the layout of `src`. This folder is the output of the typescript transpiler, and contains luau code.
 
-You will also notice a `out` folder that mirrors the layout of `src`. This folder is the output of the typescript transpiler, and contains luau code.
 
-**Helpful Tools**
+### Helpful Tools
 
 Let's add some packages to improve the developer experience. Follow these steps:
 
-1. Open your integrated terminal with `Ctrl+Shift+tilde(~)`
+1. Open your integrated terminal.
 2. Type `npm i` then `Enter` to install any required packages.
 3. Type `npm i -g concurrently` then `Enter`. (Install the package)
    1. This will install a tool to your global registry that allows us to run two shell commands at the same time. This will be useful later.
@@ -79,9 +114,9 @@ Let's add some packages to improve the developer experience. Follow these steps:
 3. Copy and paste this inside the scripts array: `"dev": "concurrently \"rbxtsc -w\" \"rojo serve\""`
 4. Save the file and close it.
 
-What we have just done is create a new command that runs the typescript compiler (`rbxtsc -w`) in watch mode, and `rojo serve` at the same time.
+We have just created a new command that runs the typescript compiler (`rbxtsc -w`) in watch mode, and `rojo serve` at the same time.
 
-Let's give our new command a try. Go ahead and run `npm run dev` within your terminal. If all is working well, yous should see the following:
+Let's give our new command a try. Go ahead and run `npm run dev` within your terminal. If all is working well, you should see the following:
 
 ```sh
 roblox-ts/FPS Framework > npm run dev
@@ -102,16 +137,18 @@ roblox-ts/FPS Framework > npm run dev
 
 If you see this, then you are ready to get started! Your typescript code will be automagically converted to luau on save, and those changes will sync into studio via rojo.
 
-*You will need to run this command once whenever you being work on your project.*
+*You will need to run this command once whenever you begin work on your project.*
 
 Finally, go ahead and connect to rojo using the studio plugin.
 
+## Chapter 3: Examples
 
-> **CHAPTER 3: Usage**
+Here are some examples!
 
+### Killbrick
 Let's do an example! Let's make a basic killbrick.
 
-(this example is showcased on the roblox-ts homepage)
+( This example is showcased on the roblox-ts homepage. I use it here because it's a great example of the safety provided by roblox-ts :] )
 
 First, connect rojo to your project. If you are using vscode, use `Ctrl/Cmd+Shift+P` to open the command palette. Type Rojo, and click the `Open Menu` option. Then, click the item with a play icon at the bottom.
 
@@ -183,3 +220,24 @@ for (const obj of CollectionService.GetTagged("Lava")) {
 
 Now, let's tag a part with the `"Lava"` tag and play-test. If you touch this part, your character dies!
 
+### Roact TSX  
+One of my favorite features of roblox-ts is roact TSX. This allows you to create TSX files that convert to vanilla roact.
+
+If you have used react before, you'll feel right at home with [roact-hooked.](https://www.npmjs.com/package/@rbxts/roact-hooked)
+
+Here is an example of a roact tsx component using hooks:
+![Screenshot](Images/RoactExample.png)
+
+More info coming soon!
+
+## Chapter 4: Conclusion & Resources
+
+Thanks for reading! I will be updating this page with more information as i see fit. If you find any typos or incorrect information, please open an issue or DM me!
+
+I plan to create a blog for these types of tutorials, so stay tuned.
+
+Here are some helpful resources Resources:
+
+- Roblox TS Packages: https://www.npmjs.com/search?q=%40rbxts
+- Roblox-TS Playground: https://roblox-ts.com/playground
+- Docs: https://roblox-ts.com/docs/
